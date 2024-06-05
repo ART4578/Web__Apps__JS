@@ -2,7 +2,8 @@ const hour__element = document.querySelector(".hour");
 const minute__element = document.querySelector(".minute");
 const second__element = document.querySelector(".second");
 
-function update__clock() {
+//analog clock
+function analog__clock() {
     const current__date = new Date();
 
     const hour = current__date.getHours();
@@ -19,4 +20,4 @@ function update__clock() {
     second__element.style.transform = `rotate(${second__deg}deg)`;
 };
 
-setInterval(update__clock, 1000);
+setInterval(analog__clock, 1000);

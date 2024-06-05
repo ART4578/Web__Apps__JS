@@ -1,3 +1,4 @@
+/*main style*/
 body {
     margin: 0;
     padding: 0;
@@ -18,6 +19,7 @@ img {
     z-index: 2;
 }
 
+/*analog clock*/
 .clock {
     position: relative;
     width: 350px;
