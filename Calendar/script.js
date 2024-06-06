@@ -7,6 +7,19 @@ let date = new Date();
 let currYear = date.getFullYear();
 let currMonth = date.getMonth();
 
+//week days
+const weeks = document.querySelector(".weeks");
+
+const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+for (let i = 0; i < weekDays.length; i++) {
+    const li = document.createElement("li");
+    li.innerHTML = weekDays[i];
+
+    weeks.appendChild(li);
+};
+
+
 // storing full name of all months in array
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 

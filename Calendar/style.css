@@ -86,7 +86,7 @@ header .icons span:last-child {
 }
 
 .days li.active {
-    color: black;
+    color: #fff;
 }
 
 .calendar ul li {
@@ -111,5 +111,5 @@ header .icons span:last-child {
 }
 
 .days li.active::before {
-    background: whitesmoke;
+    background: green;
 }
