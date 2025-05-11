@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaMirror - Քո թվային հայելին</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>🪞 MetaMirror</h1>
+            <p>Ձեր տրամադրության թվային արտացոլումը</p>
+        </header>
+        <section class="mood-input">
+            <label for="mood">Ինչպես եք զգում ձեզ այսօր❓</label>
+            <input type="text" id="mood" placeholder="օրինակ՝ հոգնած եմ, երջանիկ եմ 😊" />
+            <button id="analyzeBtn">Վերլուծել</button>
+        </section>
+        <section id="mirror-output" class="hidden">
+            <h2>📊 Հայելիի արտացոլանք</h2>
+            <div id="resultText"></div>
+            <div id="suggestion"></div>
+        </section>
+        <canvas id="moodChart" width="400" height="200"></canvas>
+        <footer>
+            <small>© 2025 MetaMirror․ Բոլոր իրավունքները պաշտպանված են։</small>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
