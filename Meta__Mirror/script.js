@@ -113,8 +113,10 @@ function renderMoodChart() {
 window.addEventListener("load", renderMoodChart);
 
 //Թույլ է տալիս մուտքագրել միայն հայերեն նիշեր և էմոջիներ։ Եթե օգտագործողը սխալ բան մուտքագրի (օրինակ՝ անգլերեն), ավտոմատ ջնջվում է։
-moodInput.addEventListener("input", (e) => {
-    const original = e.target.value;
-    const allowed = original.match(/[\u0531-\u0587\s։՜՛՞«».,0-9😊😢\-]/g);
-    e.target.value = allowed ? allowed.join("") : "";
+moodInput.addEventListener("input", () => {
+    const cleanText = moodInput.value.replace(/[^\u0531-\u0587\s։՜՛՞«»\-.,0-9😊😢]/g, "");
+
+    if (moodInput.value !== cleanText) {
+        moodInput.value = cleanText;
+    };
 });
