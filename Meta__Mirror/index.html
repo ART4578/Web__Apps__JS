@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MetaMirror - Քո թվային հայելին</title>
+    <!--CSS ֆայլը կապում ենք մեր HTML ֆայլին:-->
     <link rel="stylesheet" href="style.css">
+    <!--Chart.js գրադարանը կապում ենք մեր HTML ֆայլին:-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -14,8 +16,8 @@
             <p>Ձեր տրամադրության թվային արտացոլումը</p>
         </header>
         <section class="mood-input">
-            <label for="mood">Ինչպես եք զգում ձեզ այսօր❓</label>
-            <input type="text" id="mood" placeholder="օրինակ՝ հոգնած եմ, երջանիկ եմ 😊" />
+            <label for="mood">Ինչպես եք զգում ձեզ այսօր❓, մուտքագրման դաշտում մուտքագրել մի միայն հայերեն լեզվով:</label>
+            <input type="text" id="mood" placeholder="Օրինակ՝ հոգնած եմ, երջանիկ եմ, տխուր եմ 😊" />
             <button id="analyzeBtn">Վերլուծել</button>
         </section>
         <section id="mirror-output" class="hidden">
@@ -29,6 +31,7 @@
         </footer>
     </div>
 
+    <!--JS ֆայլը կապում ենք մեր HTML ֆայլին:-->
     <script src="script.js"></script>
 </body>
 </html>
