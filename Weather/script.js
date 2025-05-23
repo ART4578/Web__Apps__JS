@@ -58,9 +58,17 @@ class Weather {
 
                 this.weather.style.display = "block";
                 this.error.style.display = "none";
+
+                //Ստեղծում ենք փոփոխական անունով utterance, որը պահելու է մեր արտասանվող տեքստը
+                const utterance = new SpeechSynthesisUtterance(`city name: ${data.name}, city temperature: ${data.main.temp}, city humidity: ${data.main.humidity}, city wind speed: ${data.wind.speed}`);
+                //Սա ասում է բրաուզերին՝ սկսիր տրված տեքստի օրինակ այս դեպքում` utterance ձայնային արտասանումը
+                speechSynthesis.speak(utterance);
             };
         };
     };
 };
 
-new Weather();
+//Երբ վեբ էջի ամբողջ HTML կառուցվածքը բեռնվի, ստեղծիր նոր Weather օբյեկտ
+document.addEventListener("DOMContentLoaded", () => {
+    new Weather();
+});
