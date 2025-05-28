@@ -1,9 +1,8 @@
-const hour__element = document.querySelector(".hour");
-const minute__element = document.querySelector(".minute");
-const second__element = document.querySelector(".second");
-
-//analog clock
 function analog__clock() {
+    const hour__element = document.querySelector(".hour");
+    const minute__element = document.querySelector(".minute");
+    const second__element = document.querySelector(".second");
+
     const current__date = new Date();
 
     const hour = current__date.getHours();
