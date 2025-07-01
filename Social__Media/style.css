@@ -1,0 +1,98 @@
+/*search box, users box, navigation menu*/
+#search-box, #users-box, nav {
+    width: 70%;
+    margin: 50px auto;
+    border: 2px solid #000;
+    padding: 10px;
+    overflow: hidden;
+}
+
+/*navigation menu*/
+nav > h2 {
+    text-align: center;
+}
+
+nav > h2 > span {
+    color: cornflowerblue;
+    cursor: pointer;
+}
+
+/*search box*/
+#search-box > h1 {
+    width: 100%;
+    text-align: center;
+} 
+
+#search-box > input {
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    font-size: 24px;
+    outline: none;
+}
+
+#search-box > button {
+    font-size: 24px;
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+}
+
+/*users box*/
+.user-item {
+    width: 25%;
+    border: 1px solid blue;
+    padding: 10px;
+    float: left;
+    margin: 10px;
+}
+
+/*filters popup*/
+#filters {
+    width: 250px;
+    height: 92%;
+    border: 1px solid #000;
+    position: absolute;
+    top: 50px;
+    right: 12px;
+    color:white;
+    background-color: turquoise;
+    display: none;
+}
+
+#filters > p {
+    width: 100%;
+}
+
+#filters > select, #filters > button {
+    font-size: 18px;
+    width: 100%;
+    outline: none;
+}
+
+#filters > button {
+    cursor: pointer;
+}
+
+/*login box*/
+#login-box {
+    border: 1px solid #000;
+    padding: 15px;
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    margin-left: -300px;
+    top: 15%;
+    background-color:darkcyan;
+    color:white;
+    display: none;
+}
+
+#login-box > input {
+    outline: none;
+}
+
+#login-box .login-btn {
+    cursor: pointer;
+    float: right;
+}
