@@ -1,34 +1,34 @@
 class SnakeGame {
     constructor(boardId) {
-        //board
-        this.blockSize = 25; //length of one block side
-        this.rows = 20; //number of rows (20 pieces)
-        this.cols = 20; //number of columns (20 pieces)
+        this.state = {
+            //board
+            blockSize: 25, //board block size -> length of one block side
+            rows: 20, //board rows -> number of rows (20 pieces)
+            cols: 20, //board cols -> number of columns (20 pieces)
+            snakeX: 25 * 5, //snake head x coordinate
+            snakeY: 25 * 5, //snake head y coordinate
+            velocityX: 0, //X is the horizontal component of the snake's linear velocity
+            velocityY: 0, //Y is the vertical component of the snake's linear velocity
+            snakeBody: [], //snake body
+            foodX: 0, //food x coordinate
+            foodY: 0, //food y coordinate
+            gameOver: false, //indicates whether the game is over or not
+            score: 0 //player score counter
+        };
 
         this.board = document.getElementById(boardId);
         //This creates a 500px × 500px play area.
-        this.board.height = this.rows * this.blockSize; //20 * 25px = 500px
-        this.board.width = this.cols * this.blockSize;  //20 * 25px = 500px
+        this.board.height = this.state.rows * this.state.blockSize; //20 * 25px = 500px
+        this.board.width = this.state.cols * this.state.blockSize;  //20 * 25px = 500px
         this.context = this.board.getContext("2d");
 
-        //snake
-        this.snakeX = this.blockSize * 5;
-        this.snakeY = this.blockSize * 5;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.snakeBody = [];
-
-        //food
-        this.foodX = 0;
-        this.foodY = 0;
-
-        this.gameOver = false;
-
+        //bind events
         document.addEventListener("keyup", this.changeDirection.bind(this));
+        document.addEventListener("keyup", this.restartOnSpace.bind(this));
 
         this.placeFood();
         //Every 1000/10 = 100 ms, 10 times/second (10 FPS), calls the update() function.
-        setInterval(this.update.bind(this), 1000 / 10);
+        this.interval = setInterval(this.update.bind(this), 1000 / 10);
     };
 
     update() {
@@ -40,13 +40,16 @@ class SnakeGame {
 
         //First we draw the food → so that it is always visible.
         this.context.fillStyle = "red";
-        this.context.fillRect(this.foodX, this.foodY, this.blockSize, this.blockSize);
+        this.context.fillRect(this.state.foodX, this.state.foodY, this.state.blockSize, this.state.blockSize);
 
         /*If the snake's position exactly matches the food's position, it means the snake has eaten the
         red square (food) and at that moment placeFood() is called, which places the new food in a random location.*/
-        if (this.snakeX === this.foodX && this.snakeY === this.foodY) {
+        if (this.state.snakeX === this.state.foodX && this.state.snakeY === this.state.foodY) {
             //If the snake ate the food, we add a new piece to the body.
-            this.snakeBody.push([this.foodX, this.foodY]);
+            this.state.snakeBody.push([this.state.foodX, this.state.foodY]);
+
+            //When the snake eats the food, the points are added.
+            this.state.score += 1;
 
             this.placeFood();
         };
@@ -54,8 +57,8 @@ class SnakeGame {
         /*for: to move body parts. This means: the last part moves to the place of its
         predecessor, the predecessor moves to the place of the part above it,
         and so on up to the first part.*/
-        for (let i = this.snakeBody.length - 1; i > 0; i--) {
-            this.snakeBody[i] = this.snakeBody[i - 1];
+        for (let i = this.state.snakeBody.length - 1; i > 0; i--) {
+            this.state.snakeBody[i] = this.state.snakeBody[i - 1];
         };
 
         /*The first body part becomes the old head. snakeX, snakeY → was the previous 
@@ -63,26 +66,31 @@ class SnakeGame {
         snake's body. Because the snake's body always comes after the head. At this point: 
         HEAD = new position, BODY[0] = old head, BODY[1] = old position of BODY[0], 
         BODY[2]= old position of BODY[1]*/
-        if (this.snakeBody.length) {
-            this.snakeBody[0] = [this.snakeX, this.snakeY];
+        if (this.state.snakeBody.length) {
+            this.state.snakeBody[0] = [this.state.snakeX, this.state.snakeY];
         };
 
         /*We change the position of the snake according to its speed.
         We multiply by blockSize so that the snake moves a whole cell, not 1px. If this 
         were not the case, the snake would not coincide with the food, the wall, or its own 
         body, and the game would not work.*/
-        this.snakeX += this.velocityX * this.blockSize;
-        this.snakeY += this.velocityY * this.blockSize;
+        this.state.snakeX += this.state.velocityX * this.state.blockSize;
+        this.state.snakeY += this.state.velocityY * this.state.blockSize;
 
         //Then we move and draw the snake → so that the snake is in every visible layer.
         this.context.fillStyle = "lime";
-        this.context.fillRect(this.snakeX, this.snakeY, this.blockSize, this.blockSize);
+        this.context.fillRect(this.state.snakeX, this.state.snakeY, this.state.blockSize, this.state.blockSize);
 
         /*We draw the body of the snake. This for simply goes through all the parts of the body
         and draws them in a square. Here: snakeBody[i][0] → X, snakeBody[i][1] → Y */
-        for (let i = 0; i < this.snakeBody.length; i++) {
-            this.context.fillRect(this.snakeBody[i][0], this.snakeBody[i][1], this.blockSize, this.blockSize);
+        for (let i = 0; i < this.state.snakeBody.length; i++) {
+            this.context.fillRect(this.state.snakeBody[i][0], this.state.snakeBody[i][1], this.state.blockSize, this.state.blockSize);
         };
+
+        //draw score
+        this.context.fillStyle = "white";
+        this.context.font = "20px Arial";
+        this.context.fillText("Score: " + this.state.score, 10, 20);
 
         /*The game field has a width of (cols * blockSize) and a height of (rows * blockSize).
         The snake's position, snakeX and snakeY, must not exceed these limits.
@@ -92,13 +100,13 @@ class SnakeGame {
         snakeY > rows * blockSize` The snake has gone beyond the bottom boundary.
         If either of these is true, the game ends.*/
         if (
-            this.snakeX < 0 ||
-            this.snakeX > this.cols * this.blockSize ||
-            this.snakeY < 0 ||
-            this.snakeY > this.rows * this.blockSize
+            this.state.snakeX < 0 ||
+            this.state.snakeX > this.state.cols * this.state.blockSize ||
+            this.state.snakeY < 0 ||
+            this.state.snakeY > this.state.rows * this.state.blockSize
         ) {
             this.endGame();
-        };
+        };  
 
         /*snakeBody = snake body blocks
         The loop goes through all the blocks in turn.
@@ -108,8 +116,8 @@ class SnakeGame {
         The snake's head has the same coordinate as the i-th body block.
         If yes → The snake is leaning on itself, i.e. it has collided with its own body.
         That is, the game ends.*/
-        for (let i = 0; i < this.snakeBody.length; i++) {
-            if (this.snakeX === this.snakeBody[i][0] && this.snakeY === this.snakeBody[i][1]) {
+        for (let i = 0; i < this.state.snakeBody.length; i++) {
+            if (this.state.snakeX === this.state.snakeBody[i][0] && this.state.snakeY === this.state.snakeBody[i][1]) {
                 this.endGame();
             };
         };
@@ -126,27 +134,27 @@ class SnakeGame {
         //The same logic applies when the user presses a key: down arrow or left arrow or right arrow.
         switch (e.code) {
             case "ArrowUp":
-                if (this.velocityY !== 1) {
-                    this.velocityX = 0;
-                    this.velocityY = -1;
+                if (this.state.velocityY !== 1) {
+                    this.state.velocityX = 0;
+                    this.state.velocityY = -1;
                 };
                 break;
             case "ArrowDown":
-                if (this.velocityY !== -1) {
-                    this.velocityX = 0;
-                    this.velocityY = 1;
+                if (this.state.velocityY !== -1) {
+                    this.state.velocityX = 0;
+                    this.state.velocityY = 1;
                 };
                 break;
             case "ArrowLeft":
-                if (this.velocityX !== 1) {
-                    this.velocityX = -1;
-                    this.velocityY = 0;
+                if (this.state.velocityX !== 1) {
+                    this.state.velocityX = -1;
+                    this.state.velocityY = 0;
                 };
                 break;
             case "ArrowRight":
-                if (this.velocityX !== -1) {
-                    this.velocityX = 1;
-                    this.velocityY = 0;
+                if (this.state.velocityX !== -1) {
+                    this.state.velocityX = 1;
+                    this.state.velocityY = 0;
                 };
                 break;
         };
@@ -157,20 +165,42 @@ class SnakeGame {
     //This way, the food will always fit into the snake's web of movement.
     placeFood() {
         //Returns a random integer from 0 to 19 for a column.
-        this.foodX = Math.floor(Math.random() * this.cols) * this.blockSize;
+        this.state.foodX = Math.floor(Math.random() * this.state.cols) * this.state.blockSize;
         //Returns a random integer from 0 to 19 for a row.
-        this.foodY = Math.floor(Math.random() * this.rows) * this.blockSize;
+        this.state.foodY = Math.floor(Math.random() * this.state.rows) * this.state.blockSize;
     };
 
     /*Snake is the end function of the game, which is called in 2 cases:
     1. When the snake hits a wall.
     2. When the snake collides with its own body.*/
     endGame() {
-        this.gameOver = true;
-        alert("Game Over");
+        this.state.gameOver = true;
+        const playAgain = confirm(`Game Over! Your score: ${this.state.score}. Play again?`);
+        if (playAgain) {
+            this.reset();
+        };
+    };
+
+    //After the game ends, the game is completely restored to its original state without refreshing the browser.
+    reset() {
+        this.state.snakeX = this.state.blockSize * 5;
+        this.state.snakeY = this.state.blockSize * 5;
+        this.state.velocityX = 0;
+        this.state.velocityY = 0;
+        this.state.snakeBody = [];
+        this.state.gameOver = false;
+        this.state.score = 0;
+        this.placeFood();
+    };
+
+    //By pressing the space key, you can quickly restart the game with one click, without refreshing the page.
+    restartOnSpace(e) {
+        if (e.code === "Space" && this.state.gameOver) {
+            this.reset();
+        };
     };
 };
 
 window.onload = () => {
-    new SnakeGame("board");
+    const game = new SnakeGame("board");
 };
