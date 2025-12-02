@@ -33,7 +33,7 @@ class SnakeGame {
 
     update() {
         //If the game is over, we immediately exit the function and do not continue.
-        if (this.gameOver) return;
+        if (this.state.gameOver) return;
 
         this.context.fillStyle = "black";
         this.context.fillRect(0, 0, this.board.width, this.board.height);
@@ -202,5 +202,5 @@ class SnakeGame {
 };
 
 window.onload = () => {
-    const game = new SnakeGame("board");
+    new SnakeGame("board");
 };
