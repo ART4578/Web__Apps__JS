@@ -88,8 +88,9 @@ class SnakeGame {
         };
 
         //draw score
-        this.context.fillStyle = "white";
-        this.context.font = "20px Arial";
+        this.context.fillStyle = "white"; //We define the writing/drawing color.
+        this.context.font = "20px Arial"; //We define the text size and font.
+        //Using the fillText function, we write text on the canvas, 10 → the X coordinate of the text on the canvas, 20 → the Y coordinate of the text on the canvas, the text will appear in the upper left corner of the canvas at the position (10px, 20px).
         this.context.fillText("Score: " + this.state.score, 10, 20);
 
         /*The game field has a width of (cols * blockSize) and a height of (rows * blockSize).
