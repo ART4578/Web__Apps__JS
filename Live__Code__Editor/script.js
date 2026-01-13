@@ -289,6 +289,7 @@ class LiveCodeEditor {
         text.textContent = message;
 
         if (type === "error") text.classList.add("error");
+        if (type === "warn") text.classList.add("warn");
 
         row.appendChild(num);
         row.appendChild(text);
@@ -301,6 +302,7 @@ class LiveCodeEditor {
         window.addEventListener("message", (e) => {
             if (e.data.type === "log") this.logToConsole(e.data.message);
             if (e.data.type === "error") this.logToConsole(e.data.message, "error");
+            if (e.data.type === "warn") this.logToConsole(e.data.message, "warn");
         });
     };
 
@@ -340,6 +342,7 @@ class LiveCodeEditor {
 
             console.log = (...a) => send("log", a.join(" "));
             console.error = (...a) => send("error", "Error: " + a.join(" "));
+            console.warn = (...a) => send("warn", "Warn: " + a.join(" "));
 
             window.onerror = (message, source, line, col) => {
                 send("error", message + " (line " + line + ")");

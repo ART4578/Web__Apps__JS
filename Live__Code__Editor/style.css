@@ -208,3 +208,7 @@ textarea {
 #console .error {
     color: #ff4d4d;
 }
+
+#console span.warn {
+    color: #b58900;
+}
