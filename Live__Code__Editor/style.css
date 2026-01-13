@@ -1,0 +1,210 @@
+/*variables*/
+:root {
+    --bg: #0f1115;
+    --panel: #161a22;
+    --text: #ffffff;
+    --accent: #4f9cff;
+    --border: #2a2f3a;
+    --line: #1e2430;
+    --error: #ff4d4d;
+}
+
+.light {
+    --bg: #f5f6fa;
+    --panel: #fff;
+    --text: #000;
+    --border: #dcdde1;
+    --line: #ececec;
+}
+
+/*global*/
+* {
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/*header*/
+header {
+    height: 60px;
+    background: var(--panel);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+header button {
+    margin-left: 6px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+/*main*/
+main {
+    flex: 1;
+    display: flex;
+}
+
+/*left/right panels*/
+.panel {
+    flex: 1;
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border);
+}
+
+.tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+}
+
+.tabs button {
+    flex: 1;
+    padding: 10px;
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.tabs button.active {
+    background: var(--accent);
+}
+
+/*editor*/
+#editor {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    overflow-y: auto;
+    overflow-x: auto; 
+    padding: 10px;
+    box-sizing: border-box;
+    font-family: "Fira Code", monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #1e1e1e; 
+    color: #d4d4d4;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+#editor::-webkit-scrollbar {
+    width: 8px;
+}
+
+#editor::-webkit-scrollbar-track {
+    background: #2e2e2e;
+    border-radius: 4px;
+}
+
+#editor::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+    border: 2px solid #2e2e2e;
+}
+
+#editor::-webkit-scrollbar-thumb:hover {
+    background-color: #888;
+}
+
+#editor {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #2e2e2e;
+}
+
+.editor-container {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.lines {
+    width: 50px;
+    background: var(--line);
+    color: #888;
+    text-align: right;
+    padding: 10px 5px;
+    user-select: none;
+}
+
+.lines.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.lines div.active {
+    background: rgba(79, 156, 255, 0.25);
+    color: var(--text);
+}
+
+.lines div.error {
+    background: var(--error);
+    color: #fff;
+}
+
+textarea {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 10px;
+    resize: none;
+    outline: none;
+    white-space: pre;
+    overflow: auto;
+}
+
+/*output*/
+.output {
+    flex: 1;
+    background: #fff;
+    color: #000;
+}
+
+.output iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.console {
+    flex: 1;
+    background: #000;
+    color: #0f0;
+    padding: 10px;
+    font-size: 14px;
+    overflow: auto;
+}
+
+#console div {
+    display: flex;
+    gap: 10px;
+    padding: 3px 6px;
+    font-family: monospace;
+    border-bottom: 1px solid #222;
+}
+
+#console .line-number {
+    width: 30px;
+    text-align: right;
+    color: #888;
+    user-select: none;
+}
+
+#console .error {
+    color: #ff4d4d;
+}

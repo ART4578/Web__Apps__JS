@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Code Editor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!--header-->
+    <header>
+        <h1>Live Code Editor</h1>
+        <div class="actions">
+            <button id="runBtn">Run</button>
+            <button id="copyBtn">Copy</button>
+            <button id="clearBtn">Clear</button>
+            <button id="downloadBtn">Download</button>
+            <button id="toggleTheme">Toggle</button>
+            <button>Adaptive</button>
+        </div>
+    </header>
+    <!--main-->
+    <main>
+        <!--left-->
+        <div class="panel">
+            <div class="tabs" id="codeTabs">
+                <button class="active" data-lang="html">HTML</button>
+                <button data-lang="css">CSS</button>
+                <button data-lang="js">JS</button>
+            </div>
+            <div class="editor-container">
+                <div class="lines" id="lines"></div>
+                <textarea id="editor"></textarea>
+            </div>
+        </div>
+        <!--right-->
+        <div class="panel">
+            <div class="tabs" id="viewTabs">
+                <button class="active" data-view="output">Output</button>
+                <button data-view="console">Console</button>
+                <button>Database</button>
+            </div>
+            <div class="output" id="output"></div>
+            <div class="console" id="console" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script src="./jszip/dist/jszip.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
