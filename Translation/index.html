@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+        <h1>Translator</h1>
+		<div class="controls">
+			<select id="fromLanguage"></select>
+			<button id="swap">⇄</button>
+			<select id="toLanguage"></select>
+		</div>
+		<textarea id="inputText" placeholder="Enter your text..."></textarea>
+		<div class="actions">
+			<button id="copyInput">Copy Input</button>
+		</div>
+		<textarea id="outputText" placeholder="Translation..." readonly></textarea>
+		<div class="actions">
+			<button id="copyOutput">Copy Translation</button>
+			<button id="speak">Listen</button>
+		</div>
+    </div>
+	<div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
