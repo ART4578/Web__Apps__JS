@@ -1,56 +1,89 @@
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Poppins", sans-serif;
-    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
 }
 
-.container {
-    width: 100%;
-    height: 100vh;
-    background: #e3f9ff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+:root {
+    --bg: #0f172a;
+    --glass: rgba(255,255,255,0.05);
+    --accent: #3b82f6;
+    --radius: 24px;
+    --blur: 20px;
+    --text: #ffffff;
+    --danger: #ef4444;
+}
+
+body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at top, #1e293b, #0f172a);
 }
 
 .calculator {
-    background: #3a4452;
+    width: clamp(260px, 90vw, 420px);
     padding: 20px;
-    border-radius: 10px;
+    border-radius: var(--radius);
+    backdrop-filter: blur(var(--blur));
+    background: var(--glass);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
-.calculator form input {
-    border: 0;
-    outline: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-    box-shadow: -8px -8px 15px rgba(255, 255, 255, 0.1), 5px 5px 15px rgba(0, 0, 0, 0.2);
-    background-color: transparent;
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-    margin: 10px;
-}
-
-.calculator form .display {
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 0;
-}
-
-.calculator form .display input {
+.display {
+    width: 100%;
+    height: 70px;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: clamp(1.2rem, 4vw, 2rem);
     text-align: right;
-    flex: 1;
-    font-size: 45px;
-    box-shadow: none;
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
 }
 
-.calculator form input.equal {
-    width: 145px;
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
 }
 
-.calculator form input.operator {
-    color: #33ffd8;
+button {
+    padding: clamp(12px, 3vw, 20px);
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+    transition: 0.2s ease;
+}
+
+button:hover {
+    background: var(--accent);
+    transform: translateY(-3px);
+}
+
+.operator {
+    background: rgba(59,130,246,0.2);
+}
+
+.equal {
+    grid-column: span 2;
+    background: var(--accent);
+}
+
+@media (min-width: 1600px) {
+    .calculator {
+        width: 600px;
+    }
+}
+
+@media (max-width: 350px) {
+    .calculator {
+        padding: 10px;
+    }
 }
