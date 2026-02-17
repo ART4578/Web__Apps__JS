@@ -386,4 +386,4 @@ class LiveCodeEditor {
     };
 };
 
-new LiveCodeEditor();
+document.addEventListener("DOMContentLoaded", () => new LiveCodeEditor());

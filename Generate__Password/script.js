@@ -1,30 +1,48 @@
-const passwordBox = document.getElementById("password");
+class PasswordGenerator {
+    constructor() {
+        this.passwordBox = document.getElementById("password");
+        this.generateBtn = document.getElementById("generatePassBtn");
+        this.copyBtn = document.getElementById("copyPass");
+        this.length = 12;
 
-const length = 12;
+        this.upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        this.lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        this.number = "0123456789";
+        this.symbol = "@#$%^&*()_+~|}{[]></-=";
 
-const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-const lowerCase = "abcdefghijklmnopqrstuvwxyz";
-const number = "0123456789";
-const symbol = "@#$%^&*()_+~|}{[]></-=";
+        this.allChars = this.upperCase + this.lowerCase + this.number + this.symbol;
 
-const allChars = upperCase + lowerCase + number + symbol;
-
-function createPassword() {
-    let password = "";
-
-    password += upperCase[Math.floor(Math.random() * upperCase.length)];
-    password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
-    password += number[Math.floor(Math.random() * number.length)];
-    password += symbol[Math.floor(Math.random() * symbol.length)];
-
-    while (length > password.length) {
-        password += allChars[Math.floor(Math.random() * allChars.length)];
+        this.init();
     };
 
-    passwordBox.value = password;
+    init() {
+        this.generateBtn.addEventListener("click", () => this.generatePassword());
+        this.copyBtn.addEventListener("click", () => this.copyPassword());
+    };
+
+    getRandomChar(str) {
+        return str[Math.floor(Math.random() * str.length)];
+    };
+
+    generatePassword() {
+        let password = "";
+
+        password += this.getRandomChar(this.upperCase);
+        password += this.getRandomChar(this.lowerCase);
+        password += this.getRandomChar(this.number);
+        password += this.getRandomChar(this.symbol);
+
+        while (password.length < this.length) {
+            password += this.getRandomChar(this.allChars);
+        };
+
+        this.passwordBox.value = password;
+    };
+
+    copyPassword() {
+        navigator.clipboard.writeText(this.passwordBox.value);
+        alert("Password copied!");
+    };
 };
 
-function copyPassword() {
-    passwordBox.select();
-    document.execCommand("copy");
-};
+document.addEventListener("DOMContentLoaded", () => new PasswordGenerator());

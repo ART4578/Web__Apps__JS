@@ -32,4 +32,4 @@ class DigitalClock {
     };
 };
 
-new DigitalClock("hour", "minutes", "seconds", "ampm");
+document.addEventListener("DOMContentLoaded", () => new DigitalClock("hour", "minutes", "seconds", "ampm"));

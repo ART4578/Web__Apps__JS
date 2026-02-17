@@ -19,7 +19,7 @@ class Weather {
         const cityValue = this.cityInput.value.trim();
 
         if (!cityValue) {
-            alert("Մուտքագրեք քաղաքի անունը։");
+            alert("Enter the city name.");
         } else {
             const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityValue}&appid=${this.apiKey}&units=metric`;
 
@@ -59,16 +59,14 @@ class Weather {
                 this.weather.style.display = "block";
                 this.error.style.display = "none";
 
-                //Ստեղծում ենք փոփոխական անունով utterance, որը պահելու է մեր արտասանվող տեքստը
+                //We create a variable named utterance, which will hold the text we are pronouncing.
                 const utterance = new SpeechSynthesisUtterance(`city name: ${data.name}, city temperature: ${data.main.temp}, city humidity: ${data.main.humidity}, city wind speed: ${data.wind.speed}`);
-                //Սա ասում է բրաուզերին՝ սկսիր տրված տեքստի օրինակ այս դեպքում` utterance ձայնային արտասանումը
+                //This tells the browser to start the given text example, in this case, the utterance sound.
                 speechSynthesis.speak(utterance);
             };
         };
     };
 };
 
-//Երբ վեբ էջի ամբողջ HTML կառուցվածքը բեռնվի, ստեղծիր նոր Weather օբյեկտ
-document.addEventListener("DOMContentLoaded", () => {
-    new Weather();
-});
+//Once the entire HTML structure of the web page is loaded, create a new Weather object.
+document.addEventListener("DOMContentLoaded", () => new Weather());

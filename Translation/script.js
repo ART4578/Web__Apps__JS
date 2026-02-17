@@ -215,4 +215,4 @@ class Translation {
     };
 };
 
-window.addEventListener("load", () => new Translation());
+document.addEventListener("DOMContentLoaded", () => new Translation());

@@ -74,4 +74,4 @@ class RockPaperScissors {
     };
 };
 
-const game = new RockPaperScissors();
+document.addEventListener("DOMContentLoaded", () => new RockPaperScissors());

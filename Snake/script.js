@@ -202,6 +202,4 @@ class SnakeGame {
     };
 };
 
-window.onload = () => {
-    new SnakeGame("board");
-};
+document.addEventListener("DOMContentLoaded", () => new SnakeGame("board"));

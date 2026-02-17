@@ -6,12 +6,8 @@ input.checked = JSON.parse(localStorage.getItem("mode"));
 
 update__body();
 
-function update__body() {
-    if (input.checked) {
-        body.style.background = "black";
-    } else {
-        body.style.background = "white";
-    }
+function update__body () {
+    input.checked ? body.style.background = "black" : body.style.background = "white"; 
 };
 
 input.addEventListener("input", () => {

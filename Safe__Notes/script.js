@@ -1,4 +1,4 @@
-//Անձնական անվտանգ նշումների հավելված է, որտեղ կարող ես գաղտնաբառով պահպանել նշումներ՝ միայն քեզ հասանելի ձևով։
+//It's a private, secure note-taking app where you can save notes with a password that only you can access.
 class SafeNotes {
     constructor() {
         this.saveNoteBtn = document.getElementById("save__note"); 
@@ -18,24 +18,22 @@ class SafeNotes {
         this.exportNoteBtn.addEventListener("click", () => this.exportNoteFunc());
     };
 
-    //Այս մեթոդը տվյալները գաղտնագրում է։
+    //This method encrypts the data.
     encrypt(text, password) {
-        /*Նշումը և գաղտնաբառը միացնում է ::-ով։
-        Այնուհետև՝ կոդավորում է Base64 ֆորմատով։ 
-        Օգտագործվում է btoa()՝ Base64 կոդավորման համար։*/
+        /*The note and password are connected with ::. Then, it is encoded in Base64 format. Uses btoa() for Base64 encoding.*/
         return btoa(unescape(encodeURIComponent(text + "::" + password)));
     };
 
-    //Սա հակադարձում է encrypt()-ի գործողությունը։
+    //This reverses the operation of encrypt().
     decrypt(text, password) {
         try {
-            const decoded = decodeURIComponent(escape(atob(text))); //Base64 տեքստը վերծանում է atob()-ով։
+            const decoded = decodeURIComponent(escape(atob(text))); //Decodes Base64 text with atob().
             const parts = decoded.split("::");
 
-            //Եթե գաղտնաբառը համընկնում է պահպանվածի հետ, վերադարձնում է նշման տեքստը։
+            //If the password matches the saved one, returns the note text.
             if (parts[1] === password) {
                 return parts[0];
-            } else { //Հակառակ դեպքում՝ վերադարձնում է null:
+            } else { //Otherwise, it returns null.
                 return null;
             };
         } catch (e) {
@@ -43,64 +41,57 @@ class SafeNotes {
         };
     };
 
-    //Այս մեթոդը՝ Ստանում է նշումը և գաղտնաբառը։
+    //This method: Gets the note and password.
     saveNoteFunc() {
-        const note = this.note.value; //ստանում է նշումը:
-        const password = this.password.value; //ստանում է գաղտնաբառը։
+        const note = this.note.value; //gets the note:
+        const password = this.password.value; //gets the password.
 
-        //Եթե դատարկ են՝ ցույց է տալիս զգուշացում։
+        //If empty, shows a warning.
         if (!note || !password) {
-            return alert("Խնդրում ենք լրացնել դաշտերը");
-        } else { //Հակառակ դեպքում՝ Գաղտնագրում է նշումը։
+            return alert("Please fill in the fields.");
+        } else { //Otherwise, Encrypts the note.
             const encrypted = this.encrypt(note, password);
-            localStorage.setItem("secureNote", encrypted); //Պահպանում է localStorage-ում որպես "secureNote"։
-            alert("Նշումը հաջողությամբ պահպանվեց։");
+            localStorage.setItem("secureNote", encrypted); //Saves to localStorage as "secureNote".
+            alert("The note was saved successfully.");
         };
     };
 
-    //Այս մեթոդը՝ Վերցնում է պահված գաղտնագրված նշումը localStorage-ից։
+    //This method: Retrieves the stored encrypted note from localStorage.
     loadNoteFunc() {
         const password = this.password.value;
-        const encrypted = localStorage.getItem("secureNote"); //վերցնում է պահված գաղտնագրված նշումը localStorage-ից
+        const encrypted = localStorage.getItem("secureNote"); //retrieves the stored encrypted note from localStorage.
 
-        //Եթե նշում չկա՝ ցույց է տալիս զգուշացում։
+        //If there is no note, it shows a warning.
         if (!encrypted) {
-            return alert("Նշում չի գտնվել։");
+            return alert("No note found.");
         };
 
-        //Փորձում է վերծանել գաղտնաբառով։
+        //Trying to decrypt with a password.
         const note = this.decrypt(encrypted, password);
 
-        //Եթե ճիշտ է՝ տեղադրում է textarea-ի մեջ:
+        //If true, it inserts it into the textarea.
         if (note !== null) {
             this.note.value = note;
-        } else { //եթե ոչ՝ զգուշացնում է սխալ գաղտնաբառի մասին։
-            alert("Սխալ գաղտնաբառ։");
+        } else { //if not, it warns about an incorrect password.
+            alert("Incorrect password.");
         };
     };
 
-    //Մաքրման մեթոդ է՝ նշման դաշտը մաքրում է։
+    //It is a clearing method that clears the checkbox.
     clearNoteFunc() {
         this.note.value = "";
     };
 
-    //Այս մեթոդը՝ Ստուգում է՝ նշումը դատարկ է թե ոչ։
+    //This method: Checks whether the note is empty or not.
     exportNoteFunc() {
         const note = this.note.value;
 
-        //Ստուգում է՝ նշումը դատարկ է թե ոչ:
-        if (!note) {
-            return alert("Նշումը դատարկ է։");
-        };
+        if (!note) return alert("The note is empty."); //Checks whether the note is empty or not.
 
-        //Ստեղծում է Blob՝ տեքստային ֆայլ։
-        const blob = new Blob([note], { type: "text/plain" });
-        //Ստեղծում է ներբեռնման հղում (a tag)։
-        const link = document.createElement("a");
-        //Սա բրաուզերի ներկառուցված ֆունկցիա է, որը ստեղծում է ժամանակավոր URL՝ տվյալ բովանդակությունը ներկայացնելու համար։
-        link.href = URL.createObjectURL(blob);
-        //Ակտիվացնում է ներբեռնումը՝ որպես "my_note.txt"։
-        link.download = "my_note.txt";
+        const blob = new Blob([note], { type: "text/plain" }); //Creates a Blob, a text file.
+        const link = document.createElement("a"); //Creates a download link (a tag).
+        link.href = URL.createObjectURL(blob); //This is a built-in browser feature that creates a temporary URL to display the content.
+        link.download = "my_note.txt"; //Activates the download as "my_note.txt".
 
         document.body.appendChild(link);
         link.click();
@@ -108,7 +99,5 @@ class SafeNotes {
     };
 };
 
-//Երբ էջը լիովին բեռնվում է՝ ստեղծում է SafeNotes օբյեկտ՝ ակտիվացնելով ամբողջ համակարգը։
-document.addEventListener("DOMContentLoaded", () => {
-    new SafeNotes();
-});
+//When the page is fully loaded, it creates a SafeNotes object, activating the entire system.
+document.addEventListener("DOMContentLoaded", () => new SafeNotes());

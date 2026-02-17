@@ -19,5 +19,5 @@ tabs.addEventListener("click", function (e) {
     const element = document.getElementById(id);
 
     element.classList.add("live");
-  }
+  };
 });
