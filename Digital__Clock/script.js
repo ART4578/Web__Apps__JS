@@ -1,9 +1,9 @@
 class DigitalClock {
-    constructor(hourId, minutesId, secondsId, ampmId) {
-        this.hourElement = document.getElementById(hourId);
-        this.minutesElement = document.getElementById(minutesId);
-        this.secondsElement = document.getElementById(secondsId);
-        this.ampmElement = document.getElementById(ampmId);
+    constructor() {
+        this.hourElement = document.getElementById("hour");
+        this.minutesElement = document.getElementById("minutes");
+        this.secondsElement = document.getElementById("seconds");
+        this.ampmElement = document.getElementById("ampm");
 
         this.updateClock();
     };
@@ -32,4 +32,4 @@ class DigitalClock {
     };
 };
 
-document.addEventListener("DOMContentLoaded", () => new DigitalClock("hour", "minutes", "seconds", "ampm"));
+document.addEventListener("DOMContentLoaded", () => new DigitalClock());

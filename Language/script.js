@@ -1,33 +1,39 @@
-const translations = {
-    en: {
-        select: "Select a Language",
-        title: "Welcome To Simple Web Code",
-        paragraf: "Language of my website"
-    },
-    ar: {
-        select: "اختر اللغة",
-        title: "مرحباً بكم في كود الويب البسيط",
-        paragraf: "لغة موقعي"
-    }
-};
+class Translation {
+    constructor() {
+        this.languageSelector = document.querySelector("select");
+        this.selectTitle = document.getElementById("select__title");
+        this.title = document.getElementById("title");
+        this.paragraf = document.getElementById("paragraf");
 
-const languageSelector = document.querySelector("select");
-const selectTitle = document.getElementById("select__title");
-const title = document.getElementById("title");
-const paragraf = document.getElementById("paragraf");
+        this.translations = {
+            en: {
+                select: "Select a Language",
+                title: "Welcome To Simple Web Code",
+                paragraf: "Language of my website"
+            },
+            ar: {
+                select: "اختر اللغة",
+                title: "مرحباً بكم في كود الويب البسيط",
+                paragraf: "لغة موقعي"
+            }
+        };
 
-languageSelector.addEventListener("change", function(event) {
-    setLanguage(event.target.value);
-});
+        this.init();
+    };
 
-function setLanguage(language) {
-    if (language == "ar") {
-        selectTitle.innerText = translations.ar.select;
-        title.innerText = translations.ar.title;
-        paragraf.innerText = translations.ar.paragraf;
-    } else if (language == "en") {
-        selectTitle.innerText = translations.en.select;
-        title.innerText = translations.en.title;
-        paragraf.innerText = translations.en.paragraf;
+    init() {
+        this.languageSelector.addEventListener("change", (e) => this.setLanguage(e.target.value));
+    };
+
+    setLanguage(language) {
+        const lang = this.translations[language];
+
+        if (!lang) return;
+
+        this.selectTitle.innerText = lang.select;
+        this.title.innerText = lang.title;
+        this.paragraf.innerText = lang.paragraf;
     };
 };
+
+document.addEventListener("DOMContentLoaded", () => new Translation());
