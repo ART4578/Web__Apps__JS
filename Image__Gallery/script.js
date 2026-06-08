@@ -1,20 +1,42 @@
-const scrollContainer = document.querySelector(".gallery");
-const backBtn = document.getElementById("backBtn");
-const nextBtn = document.getElementById("nextBtn");
+class GallerySlider {
+    constructor() {
+        this.scrollContainer = document.querySelector(".gallery");
+        this.backBtn = document.getElementById("backBtn");
+        this.nextBtn = document.getElementById("nextBtn");
 
-scrollContainer.addEventListener("wheel", (e) => {
-    e.preventDefault();
+        this.addEvents();
+    };
 
-    scrollContainer.scrollLeft += e.deltaY;
-    scrollContainer.style.scrollBehavior = "auto";
-});
+    addEvents() {
+        this.scrollContainer.addEventListener("wheel", (e) => {
+            this.handleWheel(e);
+        });
 
-nextBtn.addEventListener("click", () => {
-    scrollContainer.style.scrollBehavior = "smooth";
-    scrollContainer.scrollLeft += 900;
-});
+        this.nextBtn.addEventListener("click", () => {
+            this.next();
+        });
 
-backBtn.addEventListener("click", () => {
-    scrollContainer.style.scrollBehavior = "smooth";
-    scrollContainer.scrollLeft -= 900;
-});
+        this.backBtn.addEventListener("click", () => {
+            this.back();
+        });
+    };
+
+    handleWheel(e) {
+        e.preventDefault();
+
+        this.scrollContainer.scrollLeft += e.deltaY;
+        this.scrollContainer.style.scrollBehavior = "auto";
+    };
+
+    next() {
+        this.scrollContainer.style.scrollBehavior = "smooth";
+        this.scrollContainer.scrollLeft += 900;
+    };
+
+    back() {
+        this.scrollContainer.style.scrollBehavior = "smooth";
+        this.scrollContainer.scrollLeft -= 900;
+    };
+};
+
+document.addEventListener("DOMContentLoaded", () => new GallerySlider());

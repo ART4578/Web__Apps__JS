@@ -1,20 +1,27 @@
-const input = document.querySelector(".input");
-const body = document.querySelector("body");
+class ThemeSwitcher {
+    constructor() {
+        this.input = document.querySelector(".input");
 
-input.checked = false;
-input.checked = JSON.parse(localStorage.getItem("mode"));
+        this.loadMode();
+        this.updateBody();
 
-update__body();
+        this.input.addEventListener("input", () => {
+            this.updateBody();
+            this.saveMode();
+        });
+    };
 
-function update__body () {
-    input.checked ? body.style.background = "black" : body.style.background = "white"; 
+    loadMode() {
+        this.input.checked = JSON.parse(localStorage.getItem("mode")) || false;
+    };
+
+    updateBody() {
+        document.body.classList.toggle("dark", this.input.checked);
+    };
+
+    saveMode() {
+        localStorage.setItem("mode", JSON.stringify(this.input.checked));
+    };
 };
 
-input.addEventListener("input", () => {
-    update__body();
-    update__local__storige();
-});
-
-function update__local__storige() {
-    localStorage.setItem("mode", JSON.stringify(input.checked));
-};
+document.addEventListener("DOMContentLoaded", () => new ThemeSwitcher());

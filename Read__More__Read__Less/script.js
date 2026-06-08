@@ -1,21 +1,27 @@
-let readBtn = document.querySelector("#read");
-let moreText = document.querySelector("#more");
-let dots = document.querySelector("#dots");
+class ReadMore {
+    constructor() {
+        this.readBtn = document.querySelector("#read");
+        this.moreText = document.querySelector("#more");
+        this.dots = document.querySelector("#dots");
 
-let i = 0;
+        this.isOpen = false;
 
-function read() {
-    if (!i) {
-        moreText.style.display = "inline";
-        dots.style.display = "none";
-        readBtn.innerHTML = "Read Less";
-        i = 1;
-    } else {
-        moreText.style.display = "none";
-        dots.style.display = "inline";
-        readBtn.innerHTML = "Read More";
-        i = 0;
+        this.readBtn.addEventListener("click", () => this.toggle());
+    };
+
+    toggle() {
+        if (!this.isOpen) {
+            this.moreText.style.display = "inline";
+            this.dots.style.display = "none";
+            this.readBtn.innerHTML = "Read Less";
+            this.isOpen = true;
+        } else {
+            this.moreText.style.display = "none";
+            this.dots.style.display = "inline";
+            this.readBtn.innerHTML = "Read More";
+            this.isOpen = false;
+        };
     };
 };
 
-readBtn.addEventListener("click", read);
+document.addEventListener("DOMContentLoaded", () => new ReadMore());

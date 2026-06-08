@@ -1,36 +1,45 @@
-const prev = document.querySelector(".prev");
-const next = document.querySelector(".next");
-const image__container = document.querySelector(".image__container");
-const imgs = document.querySelectorAll("img");
+class ImageSlider {
+    constructor() {
+        this.prev = document.querySelector(".prev");
+        this.next = document.querySelector(".next");
+        this.imageContainer = document.querySelector(".image__container");
+        this.imgs = document.querySelectorAll(".image__container img");
 
-let current__img = 1;
-let time__out;
+        this.currentImg = 1;
+        this.timeOut = null;
 
-prev.addEventListener("click", () => {
-    current__img--;
-    clearTimeout(time__out);
-    update__img();
-});
+        this.addEvents();
+        this.updateImg();
+    };
 
-next.addEventListener("click", () => {
-    current__img++;
-    clearTimeout(time__out);
-    update__img();
-});
+    addEvents() {
+        this.prev.addEventListener("click", () => {
+            this.currentImg--;
+            clearTimeout(this.timeOut);
+            this.updateImg();
+        });
 
-update__img();
+        this.next.addEventListener("click", () => {
+            this.currentImg++;
+            clearTimeout(this.timeOut);
+            this.updateImg();
+        });
+    };
 
-function update__img() {
-    if (current__img > imgs.length) {
-        current__img = 1;
-    } else if (current__img < 1) {
-        current__img = imgs.length;
-    }
+    updateImg() {
+        if (this.currentImg > this.imgs.length) {
+            this.currentImg = 1;
+        } else if (this.currentImg < 1) {
+            this.currentImg = this.imgs.length;
+        };
 
-    image__container.style.transform = `translateX(-${(current__img - 1) * 500}px)`;
-    
-    time__out = setTimeout(() => {
-        current__img++;
-        update__img();
-    }, 3000);
+        this.imageContainer.style.transform = `translateX(-${(this.currentImg - 1) * 500}px)`;
+
+        this.timeOut = setTimeout(() => {
+            this.currentImg++;
+            this.updateImg();
+        }, 3000);
+    };
 };
+
+document.addEventListener("DOMContentLoaded", () => new ImageSlider());

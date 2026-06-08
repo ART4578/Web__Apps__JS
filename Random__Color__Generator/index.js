@@ -1,32 +1,46 @@
-const containerEl = document.querySelector(".container");
+class ColorGenerator {
+  constructor(count = 30) {
+    this.container = document.querySelector(".container");
+    this.count = count;
 
-for (let index = 0; index < 30; index++) {
-  const colorContainerEl = document.createElement("div");
-  colorContainerEl.classList.add("color__container");
-  containerEl.appendChild(colorContainerEl);
-};
-
-const colorContainerEls = document.querySelectorAll(".color__container");
-
-generateColors();
-
-function generateColors() {
-  colorContainerEls.forEach((colorContainerEl) => {
-    const newColorCode = randomColor();
-    colorContainerEl.style.backgroundColor = "#" + newColorCode;
-    colorContainerEl.innerText = "#" + newColorCode;
-  });
-};
-
-function randomColor() {
-  const chars = "0123456789abcdef";
-  const colorCodeLength = 6;
-  let colorCode = "";
-
-  for (let index = 0; index < colorCodeLength; index++) {
-    const randomNum = Math.floor(Math.random() * chars.length);
-    colorCode += chars.substring(randomNum, randomNum + 1);
+    this.createBoxes();
+    this.generateColors();
   };
 
-  return colorCode;
+  createBoxes() {
+    for (let i = 0; i < this.count; i++) {
+      const colorBox = document.createElement("div");
+
+      colorBox.classList.add("color__container");
+
+      this.container.appendChild(colorBox);
+    };
+
+    this.colorBoxes = document.querySelectorAll(".color__container");
+  };
+
+  generateColors() {
+    this.colorBoxes.forEach((box) => {
+      const color = this.randomColor();
+
+      box.style.backgroundColor = `#${color}`;
+      box.innerText = `#${color}`;
+    });
+  };
+
+  randomColor() {
+    const chars = "0123456789abcdef";
+
+    let colorCode = "";
+
+    for (let i = 0; i < 6; i++) {
+      const randomNum = Math.floor(Math.random() * chars.length);
+
+      colorCode += chars[randomNum];
+    };
+
+    return colorCode;
+  };
 };
+
+document.addEventListener("DOMContentLoaded", () => new ColorGenerator());

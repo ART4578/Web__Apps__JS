@@ -1,20 +1,28 @@
-//We connect HTML elements to JS
-const toggle = document.getElementById("toggleDark");
-const body = document.querySelector("body");
-
-//whenever this icon is clicked this function will be executed
-toggle.addEventListener("click", function() {
-    //We create a new class for the element
-    this.classList.toggle("bi-moon");
-
-    //if the class is a sun icon then the background will be white and if it is a moon icon then the background will be black
-    if (this.classList.toggle("bi-brightness-high-fill")) {
-        body.style.background = "white";
-        body.style.color = "black";
-        body.style.transition = "2s";
-    } else {
-        body.style.background = "black";
-        body.style.color = "white";
-        body.style.transition = "2s";
+class DarkModeToggle {
+    constructor() {
+        this.toggle = document.getElementById("toggleDark");
+        this.body = document.body;
+        
+        this.addEvents();
     };
-});
+
+    addEvents() {
+        this.toggle.addEventListener("click", () => this.toggleTheme());
+    };
+
+    toggleTheme() {
+        this.toggle.classList.toggle("bi-moon");
+
+        if (this.toggle.classList.toggle("bi-brightness-high-fill")) {
+            this.body.style.background = "white";
+            this.body.style.color = "black";
+            this.body.style.transition = "2s";
+        } else {
+            this.body.style.background = "black";
+            this.body.style.color = "white";
+            this.body.style.transition = "2s";
+        };
+    };
+};
+
+document.addEventListener("DOMContentLoaded", () => new DarkModeToggle());

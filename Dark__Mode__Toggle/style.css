@@ -5,6 +5,13 @@ body {
     justify-content: center;
     align-items: center;
     transition: .4s;
+    background: white;
+    color: black;
+}
+
+body.dark {
+    background: black;
+    color: white;
 }
 
 .input {

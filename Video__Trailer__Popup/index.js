@@ -1,14 +1,28 @@
-const btn = document.querySelector(".btn");
-const close__icon = document.querySelector(".close__icon");
-const trailer__container = document.querySelector(".trailer__container");
-const video = document.querySelector("video");
+class TrailerPlayer {
+    constructor() {
+        this.btn = document.querySelector(".btn");
+        this.closeIcon = document.querySelector(".close__icon");
+        this.trailerContainer = document.querySelector(".trailer__container");
+        this.video = document.querySelector("video");
 
-btn.addEventListener("click", () => {
-    trailer__container.classList.remove("active");
-});
+        this.addEvents();
+    };
 
-close__icon.addEventListener("click", () => {
-    trailer__container.classList.add("active");
-    video.pause();
-    video.currentTime = 0;
-});
+    addEvents() {
+        this.btn.addEventListener("click", () => this.openTrailer());
+        this.closeIcon.addEventListener("click", () => this.closeTrailer());
+    };
+
+    openTrailer() {
+        this.trailerContainer.classList.remove("active");
+    };
+
+    closeTrailer() {
+        this.trailerContainer.classList.add("active");
+
+        this.video.pause();
+        this.video.currentTime = 0;
+    };
+};
+
+document.addEventListener("DOMContentLoaded", () => new TrailerPlayer());
