@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>Todo Pro</h1>
+            <button id="themeBtn">🌙</button>
+        </header>
+        <div class="todo-input">
+            <input
+                type="text"
+                id="todoInput"
+                placeholder="Write the task..."
+                maxlength="100"
+            />
+            <button id="addBtn">Add</button>
+        </div>
+        <div class="toolbar">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search..."
+            />
+            <select id="filter">
+                <option value="all">Everyone</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+            </select>
+        </div>
+        <ul id="todoList"></ul>
+    </div>
+
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
